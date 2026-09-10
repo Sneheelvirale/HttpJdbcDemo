@@ -1,0 +1,13 @@
+# Ignore compiled Java class files
+*.class
+bin/
+target/
+
+# Ignore Eclipse metadata files
+.settings/
+.project
+.classpath
+
+# Ignore OS metadata
+.DS_Store
+Thumbs.db
