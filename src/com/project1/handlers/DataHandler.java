@@ -12,8 +12,11 @@ import com.project1.db.DBConnection;
 
 public class DataHandler {
 
+
     public static String saveUser(String name, String email, String password) throws IOException {
-        // ... unchanged, your existing insert logic stays as-is
+
+
+
         String query = "INSERT INTO users(name, email, password) VALUES(?,?,?)";
         if(name==null || name.length()<2) {
         	return "Name is too short";
