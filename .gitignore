@@ -11,3 +11,5 @@ target/
 # Ignore OS metadata
 .DS_Store
 Thumbs.db
+
+config.properties
