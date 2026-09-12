@@ -29,14 +29,15 @@ public class FormHandler implements HttpHandler{
 			String name = params.get("name");
 			String email = params.get("email");
 			String password = params.get("password");
-			
-			boolean isSaved = DataHandler.saveUser(name, email, password);
+			System.out.println("Name value: "+name);
+			String isSaved = DataHandler.saveUser(name, email, password);
 			
 			String response;
-			if(isSaved) {
+			if(isSaved==null) {
 				response = "<h1>Success !!</h1><p>Account created for"+name+"</p>";
 			}else {
-				response = "<h1>Failed</h1><p>Could not able to store infor to database</p>";
+//				response = "<h1>Failed</h1><p>Could not able to store info to database</p>";
+				response = "<h1>Failed</h1><p>"+isSaved+"</p>";
 			}
 			exchange.getResponseHeaders().set("Content-Type","text/html; charset=UTF-8"); 
 			exchange.sendResponseHeaders(200, response.getBytes(StandardCharsets.UTF_8).length);

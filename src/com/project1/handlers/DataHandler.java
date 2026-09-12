@@ -1,5 +1,6 @@
 package com.project1.handlers;
 
+import java.io.IOException;
 import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
@@ -11,19 +12,29 @@ import com.project1.db.DBConnection;
 
 public class DataHandler {
 
-    public static boolean saveUser(String name, String email, String password) {
+    public static String saveUser(String name, String email, String password) throws IOException {
         // ... unchanged, your existing insert logic stays as-is
         String query = "INSERT INTO users(name, email, password) VALUES(?,?,?)";
+        if(name==null || name.length()<2) {
+        	return "Name is too short";
+        }
+        if(email == null || !email.contains("@") ){
+        	return "Email is not valid";
+        }
+        if(password==null || password.length()<=6 ) {
+        	return "Password is too short";
+        }
         try (Connection conn = DBConnection.getConnection();
              PreparedStatement stmt = conn.prepareStatement(query)) {
             stmt.setString(1, name);
             stmt.setString(2, email);
             stmt.setString(3, password);
             int rowInserted = stmt.executeUpdate();
-            return rowInserted > 0;
+//            return rowInserted > 0;
+            return null;
         } catch (SQLException e) {
             e.printStackTrace();
-            return false;
+            return "Database error";
         }
     }
 
@@ -33,7 +44,7 @@ public class DataHandler {
     // a proper JSON library (like Jackson) will do this serialization for
     // you automatically from a User object — you're doing it manually here
     // so you understand what's actually happening underneath.
-    public static List<String> getAllUsers() {
+    public static List<String> getAllUsers() throws IOException {
         List<String> users = new ArrayList<>();
         // NOTE: intentionally NOT selecting password — never expose
         // stored passwords back through an API response, even hashed ones,

@@ -25,6 +25,7 @@ public class DataListHandler implements HttpHandler {
         String responseBody = "[" + String.join(",", users) + "]";
 
         exchange.getResponseHeaders().set("Content-Type", "application/json; charset=UTF-8");
+        exchange.getResponseHeaders().set("Access-Control-Allow-Origin", "http://127.0.0.1:5501");
         byte[] bytes = responseBody.getBytes(StandardCharsets.UTF_8);
         exchange.sendResponseHeaders(200, bytes.length);
 
