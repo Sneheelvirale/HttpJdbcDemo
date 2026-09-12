@@ -1,5 +1,5 @@
 document.addEventListener('DOMContentLoaded',()=>{
-    fetch('/data').then(response=>{
+    fetch('http://localhost:8080/data').then(response=>{
         if(!response.ok){
             throw new Error('Network response we not ok');
         }
@@ -13,7 +13,7 @@ document.addEventListener('DOMContentLoaded',()=>{
             userList.innerHTML = '<tr><td colspan="3" class = "message">No user found.</td></tr>';
             return;
         }
-        users.array.forEach(user => {
+        users.forEach(user => {
             const row = document.createElement('tr');
             row.innerHTML = `
                             <td>${user.id}</td>
